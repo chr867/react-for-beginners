@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+기술이 해결하려는 문제를 알지 못하고 배우려 한다면 기술의 장점을 이해하지 못할 것.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React.js의 목표 → interactive한 UI를 쉽게 만들기
 
-## Available Scripts
+interactive한 어플리케이션에서 하는 작업들 모두가 event들을 감지하는 일이다.
 
-In the project directory, you can run:
+### React 규칙
 
-### `npm start`
+HTML을 직접 작성하지않는다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### React Js Element를 만드는 방법
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React.createElement(tag-name. {prop: “”}, “Content”)
 
-### `npm test`
+prop에 EventListener, style 설정 가능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+React-dom을 활용해 HTML에 배치할 수 있음 → ReactDOM.render(Element, Target)
 
-### `npm run build`
+### JSX를 사용한 Element 만들기
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+HTML 태그를 정의하는 것으로 React Element를 만들 수 있음
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Component로 만들기 위해선 함수로 바꿔주면 됨.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Component는 대문자로 시작
 
-### `npm run eject`
+### HTML을 업데이트하는 방법(State)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+State: 중괄호 안에 변수를 사용
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Vanilla JS와는 달리 React.js는 바뀐 부분만 업데이트 함**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+렌더링을 발생시키는 방법
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+React.useState() → 배열 디스트럭처링 활용 [0] 초기값, [1] setState 함수
 
-## Learn More
+핸들러 함수를 활용해 State를 변경하면 컴포넌트를 리렌더링
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Input 과 State → value에 state, eventListener를 활용한 UnitConverter
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Props
 
-### Code Splitting
+부모 컴포넌트에서 자식 컴포넌트에 넘겨주는 Properties
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+자식 컴포넌트에 의해 부모 컴포넌트의 스테이트 변경이 일어난다면 부모 컴포넌트의 리렌더링 발생
 
-### Analyzing the Bundle Size
+불필요한 렌더링을 막기위한 Memo 기능 → Prop에 변경이 없다면 리렌더링을 하지 않는다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+무한한 컴포넌트 확장성, 부모 컴포넌트와 자식 컴포넌트
 
-### Making a Progressive Web App
+### Props Types
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+타입 체크
 
-### Advanced Configuration
+prop-types 패키지 필요
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Component.propTypes ={
 
-### Deployment
+name: PropTypes.type
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+}
 
-### `npm run build` fails to minify
+### create-react-app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+css module화 
+
+### 컴포넌트가 처음 렌더링 될 때만 작동해야 하는 코드
+
+ex) API를 호출할 때 
+
+useEffect 함수 사용.
+
+**Deps(useEffect 함수 2번째 argument)**
+
+- 배열을 사용, 특정 state가 변했을 때만 실행될 코드
+
+**CleanUpFunction**
+
+- 컴포넌트가 삭제될 때 실행될 코드
+- effectFunction 안에서 return function으로 구현
+
+Array
+
+```jsx
+  const [toDoList, setToDoList] = useState([]);
+  setToDoList(toDoList => [toDo, ...toDoList]);
+```
