@@ -19,7 +19,7 @@ function Detail(){
 
   return (
     <div>
-      <Link to="/">Home</Link>
+      <Link to={`${process.env.PUBLIC_URL}/`}>Home</Link>
       <h1>Detail for: {movie.title}</h1>
       {loading ?<h2>Loading...</h2> : <Movie 
         id={movie.id}
