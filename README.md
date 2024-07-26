@@ -85,3 +85,9 @@ Array
   const [toDoList, setToDoList] = useState([]);
   setToDoList(toDoList => [toDo, ...toDoList]);
 ```
+
+### Router
+URL을 보고 있는 컴포넌트
+Link -> **새로고침** 없이 컴포넌트간 이동
+
+### gh-pages를 사용하면 쉽게 배포 가능

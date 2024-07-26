@@ -1,35 +1,36 @@
-import { useEffect, useState } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const getMovies = async () =>{
-    const json = await(
-      await fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"))
-      .json();
-      setMovies(json.data.movies);
-      setLoading(false);
-  }
-  useEffect(()=>{getMovies()}, []);
-  console.log(movies);
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <Home/>,
+  //   },
+  //   {
+  //     path: "/movie",
+  //     element: <Detail/>,
+  //   },
+  // ]);
 
-  return (
-    <div>
-      {loading ?<h1>Loading...</h1> 
-        :movies.map(movie => (
-          <div key={movie.id}>
-            <img src={movie.medium_cover_image}></img>
-            <h2>{movie.title}</h2>
-            <p>{movie.summary}</p>
-            <ul>
-              {movie.genres.map((g, idx) => (
-                <li key={idx}>{g}</li>
-              ))}
-            </ul>
-          </div>
-      ))}
-    </div>
-  );
+  return <RouterProvider router={
+      createBrowserRouter([
+        {
+          path: "/",
+          element: <Home/>,
+        },
+        {
+          path: "/movie/:id",
+          element: <Detail/>,
+        },
+      ])
+    }
+  >
+  </RouterProvider>;
 }
 
 export default App;
